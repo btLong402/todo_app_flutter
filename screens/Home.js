@@ -1,14 +1,18 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+// import { createDrawerNavigator } from '@react-navigation/drawer';
+import Login from './Login';
+import Splash from './Splash';
+const Tab = createBottomTabNavigator();
+// const Drawer = createDrawerNavigator();
 
 export default function HomeScreen() {
   return (
-    <View style={{flex: 1,
-      flexDirection: 'column',
-      justifyContent: 'center',alignItems: 'center',}}>
-        <View style={{width: 50, height: 50, backgroundColor: 'powderblue'}} />
-        <View style={{width: 50, height: 50, backgroundColor: 'skyblue'}} />
-        <View style={{width: 50, height: 50, backgroundColor: 'steelblue'}} />
-      </View>
+      <Tab.Navigator>
+        <Tab.Screen name="Login" component={Login} />
+        <Tab.Screen name="Splash" component={Splash} />
+      </Tab.Navigator>
   );
 }

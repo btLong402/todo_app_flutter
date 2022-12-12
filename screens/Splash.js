@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text } from "react-native";
+//import Login from './Login';
 class SplashScreen extends React.Component {
   performTimeConsumingTask = async () => {
     return new Promise((resolve) =>
@@ -13,7 +14,7 @@ class SplashScreen extends React.Component {
     // Preload data using AsyncStorage
     const data = await this.performTimeConsumingTask();
     if (data !== null) {
-      this.props.navigation.navigate("App");
+      this.props.navigation.navigate("LoginScreen");
     }
   }
   render() {

@@ -13,16 +13,21 @@ function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+      <Stack.Screen
+          name="SplashScreen"
+          component={SplashScreen}
+          // options= {{title: 'Welcome HomeScreen'}}
+        />
         <Stack.Screen
           name="LoginScreen"
           component={Login}
           // options= {{title: 'Welcome HomeScreen'}}
         />
-        {/* <Stack.Screen
+        <Stack.Screen
           name="HomeScreen"
           component={HomeScreen}
           // options= {{title: 'Welcome HomeScreen'}}
-        /> */}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
