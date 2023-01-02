@@ -11,10 +11,10 @@ const Stack = createNativeStackNavigator();
 
 function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-      <Stack.Screen
-          name="SplashScreen"
+    <NavigationContainer >
+      <Stack.Navigator screenOptions={{headerShown: false}}>
+        <Stack.Screen
+          name="Splash"
           component={SplashScreen}
           // options= {{title: 'Welcome HomeScreen'}}
         />

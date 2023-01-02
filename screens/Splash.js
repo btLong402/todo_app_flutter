@@ -20,7 +20,7 @@ class SplashScreen extends React.Component {
   render() {
     return (
       <View style={styles.viewStyles}>
-        <Text style={styles.textStyles}>Blitz Reading</Text>
+        <Text style={styles.textStyles}>Drink Shop</Text>
       </View>
     );
   }
