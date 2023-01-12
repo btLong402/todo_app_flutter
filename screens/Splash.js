@@ -14,7 +14,7 @@ class SplashScreen extends React.Component {
     // Preload data using AsyncStorage
     const data = await this.performTimeConsumingTask();
     if (data !== null) {
-      this.props.navigation.navigate("LoginScreen");
+      this.props.navigation.navigate("HomeDrawer");
     }
   }
   render() {
