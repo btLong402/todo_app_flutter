@@ -10,6 +10,7 @@ import {
   Text,
   FlatList,
   Dimensions,
+  ImageBackground,
 } from 'react-native';
 
 import Feather from 'react-native-vector-icons/Feather';
@@ -22,7 +23,9 @@ const _spacing = 10;
 const Test = () => {
   return (
     <SafeAreaView style={styles.container}>
-      
+        <ImageBackground source={require('./component/products/how-to-prepare-Nigerian-fried-rice.png')} resizeMode='cover' style={styles.header}>
+
+        </ImageBackground>
     </SafeAreaView>
   );
 };
@@ -47,6 +50,10 @@ const styles = StyleSheet.create({
   item: {
     fontSize: 16,
     marginVertical: 5,
+  },
+  header: {
+    width: '100%',
+    height: 467,
   },
 });
 
