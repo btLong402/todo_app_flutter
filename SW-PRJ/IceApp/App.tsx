@@ -20,9 +20,9 @@ function App(): JSX.Element {
     // <Splash/>
     // <SignIn />
     // <SignUp/>
-    // <MainPage />
+    <MainPage />
     // <MainDishPage />
-    <Test/>
+    // <Test/>
   );
 }
 export default App;

@@ -1,9 +1,6 @@
 /* eslint-disable prettier/prettier */
-/* eslint-disable react-native/no-inline-styles */
-/* eslint-disable react/no-unstable-nested-components */
-/* eslint-disable @typescript-eslint/no-shadow */
 import React from 'react';
-import {Image, SafeAreaView, ScrollView, StyleSheet, View, Dimensions} from 'react-native';
+import {Image, SafeAreaView, StyleSheet, View, Dimensions} from 'react-native';
 
 import {AppBar, HStack, IconButton} from '@react-native-material/core';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -99,9 +96,6 @@ const styles = StyleSheet.create({
   body: {
     backgroundColor: '#FCF3F1',
     width: '100%',
-    borderTopRightRadius: 35,
-    borderTopLeftRadius: 35,
-    padding: 20,
     height: bodyHeight,
   },
   hederBar: {
