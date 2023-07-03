@@ -17,10 +17,12 @@ import {
   NativeSyntheticEvent,
   NativeScrollEvent,
 } from 'react-native';
-import {Divider, IconButton} from '@react-native-material/core';
+import {Divider} from '@react-native-material/core';
 import {Modal, NativeBaseProvider} from 'native-base';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { useAppSelector } from '../../redux/hook';
+import { getData } from '../../utils/index';
 const Data: DataSection[] = [
   {
     title: 'Popular',
@@ -129,10 +131,15 @@ const Data: DataSection[] = [
   },
 ];
 
-const RenderItem = (props: Item) => {
-  const {title, price, thumbnail} = props;
+type RenderItemProps = {
+  item: Item;
+  handleClick: () => void;
+};
+
+const RenderItem = (props: RenderItemProps) => {
+  const {item, handleClick} = props;
   return (
-    <Pressable style={styles.item} onPress={() => console.log(title)}>
+    <Pressable style={styles.item} onPress={() => handleClick()}>
       <Image
         source={{
           uri: 'https://vietngon.vn/wp-content/uploads/2023/03/kem-tuoi-ngon.jpg',
@@ -141,8 +148,8 @@ const RenderItem = (props: Item) => {
         // source={thumbnail}
       />
       <View style={styles.right}>
-        <Text style={styles.h1}>{title}</Text>
-        <Text style={styles.h2}>{price}</Text>
+        <Text style={styles.h1}>{item.title}</Text>
+        <Text style={styles.h2}>{item.price}</Text>
         <View style={styles.icon}>
           <MaterialCommunityIcons name="plus-circle" color="red" size={30} />
         </View>
@@ -150,11 +157,11 @@ const RenderItem = (props: Item) => {
     </Pressable>
   );
 };
-
-function MainPage() {
-  const ref = useRef<FlatList>(null);
+function MainPage({navigation} : any) {
   const ref1 = useRef<FlatList>(null);
   const [i, setI] = useState(0);
+  const {categoryList} = useAppSelector(state => state.categoryList);
+  const {productList} = useAppSelector(state => state.productList);
   useEffect(() => {
     ref1.current?.scrollToIndex({
       index: i,
@@ -162,7 +169,11 @@ function MainPage() {
       viewPosition: 0,
     });
   }, [i]);
-
+  const m = getData(productList, categoryList);
+  console.log(m[1].title, m[1].products);
+  const handleClick = () =>{
+    navigation.navigate('Test');
+  };
   const [visible, setVisible] = useState(false);
   return (
     <NativeBaseProvider>
@@ -182,9 +193,8 @@ function MainPage() {
               <Section title={item.title}>
                 {item.data.map((p: Item, id: number) => (
                   <RenderItem
-                    title={p.title}
-                    price={p.price}
-                    thumbnail={p.thumbnail}
+                    item={p}
+                    handleClick={handleClick}
                     key={id}
                   />
                 ))}

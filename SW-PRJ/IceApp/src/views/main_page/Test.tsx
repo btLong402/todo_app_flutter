@@ -18,6 +18,7 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import {IconButton} from '@react-native-material/core';
 import {CheckBox} from '@rneui/themed';
 import {Divider} from '@react-native-material/core';
+import MultiCheckBox from '../../components/multiChoice';
 const FakeTp = [
   {
     targetNUmberL: '50%',
@@ -26,13 +27,54 @@ const FakeTp = [
     targetNUmberL: '100%',
   },
 ];
-const Test = () => {
+
+type Data = {
+  title: string;
+  item: Array<{
+    itemId: number;
+    itemName: string;
+    isChecked: boolean;
+  }>;
+};
+const fakeData: Data = {
+  title: 'Shopping List',
+  item: [
+    {
+      itemId: 1,
+      itemName: 'Apples',
+      isChecked: false,
+    },
+    {
+      itemId: 2,
+      itemName: 'Milk',
+      isChecked: false,
+    },
+    {
+      itemId: 3,
+      itemName: 'Bread',
+      isChecked: false,
+    },
+    {
+      itemId: 4,
+      itemName: 'Eggs',
+      isChecked: false,
+    },
+    {
+      itemId: 5,
+      itemName: 'Cheese',
+      isChecked: false,
+    },
+  ],
+};
+
+const Test = ({navigation} : any) => {
   const [selectedIndex, setSelectedIndex] = useState<number>();
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
         <IconButton
           icon={<Icon name="leftcircleo" size={30} color="black" />}
+          onPress={() => navigation.navigate('MyTabs')}
         />
         <ImageBackground
           source={require('./component/products/how-to-prepare-Nigerian-fried-rice.png')}
@@ -90,18 +132,11 @@ const Test = () => {
               containerStyle={{backgroundColor: '#FFF2F2', borderRadius: 30}}
             />
           ))}
-          <Text style={styles.title}>Description</Text>
-          {FakeTp.map((e, i) => (
-            <CheckBox
-              key={i}
-              title={e.targetNUmberL}
-              checkedIcon="dot-circle-o"
-              uncheckedIcon="circle-o"
-              checked={selectedIndex === i + 1}
-              onPress={() => setSelectedIndex(i + 1)}
-              containerStyle={{backgroundColor: '#FFF2F2', borderRadius: 30}}
-            />
-          ))}
+          <MultiCheckBox
+            title={fakeData.title}
+            data={fakeData.item}
+            productId={1}
+          />
         </View>
       </ScrollView>
       <Divider leadingInset={28} trailingInset={28} style={styles.divider} />
