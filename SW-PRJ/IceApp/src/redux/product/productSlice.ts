@@ -9,7 +9,6 @@ export interface Product {
   basePrice: number;
   discount: number;
   category: Array<{
-    categoryId: string;
     title: string;
   }>;
   sizeList: Array<{

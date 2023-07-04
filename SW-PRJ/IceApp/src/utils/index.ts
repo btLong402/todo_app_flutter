@@ -1,5 +1,4 @@
 /* eslint-disable prettier/prettier */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 
 import {Category} from '../redux/category/categorySlice';
 import {Product} from '../redux/product/productSlice';
@@ -11,20 +10,26 @@ export const getData = (productList: Product[], category: Category[]) => {
       productId: string;
       name: string;
       basePrice: number;
+      thumbnail: string;
     }>;
   }> = [];
 
   category.forEach((c: Category) => {
-    const products = productList.filter((p: Product) =>
-      p.category.filter(cat => cat.categoryId === c.categoryId),
-    );
-    // console.log(products[0]);
+    const products: Product[] = [];
+    productList.forEach((p: Product) => {
+      p.category.forEach((ca: any) => {
+        if (ca.title === c.title) {
+          products.push(p);
+        }
+      });
+    });
     Data.push({
       title: c.title,
       products: products.map(p => ({
         productId: p.productId,
         name: p.name,
         basePrice: p.basePrice,
+        thumbnail: p.image,
       })),
     });
   });

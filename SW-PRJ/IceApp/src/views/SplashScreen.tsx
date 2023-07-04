@@ -34,7 +34,6 @@ const Splash = ({navigation}: any) => {
         });
         product.category.forEach((cate: any) => {
           category.push({
-            categoryId: String(cate._id),
             title: String(cate.title),
           });
         });

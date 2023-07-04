@@ -74,7 +74,7 @@ const Test = ({navigation} : any) => {
       <ScrollView>
         <IconButton
           icon={<Icon name="leftcircleo" size={30} color="black" />}
-          onPress={() => navigation.navigate('MyTabs')}
+          onPress={() => navigation.goBack()}
         />
         <ImageBackground
           source={require('./component/products/how-to-prepare-Nigerian-fried-rice.png')}

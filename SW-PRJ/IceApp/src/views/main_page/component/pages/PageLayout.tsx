@@ -6,11 +6,12 @@ import {AppBar, HStack, IconButton} from '@react-native-material/core';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 type PageProps = {
   children?: React.ReactNode;
+  navigation: any;
 };
 const windowHeight = Dimensions.get('window').height;
 const bodyHeight = windowHeight - 70; // Adjust the value as needed
 const Page = (props: PageProps) => {
-  const {children} = props;
+  const {children, navigation} = props;
   return (
     <SafeAreaView>
       <View style={styles.background}>
@@ -30,6 +31,7 @@ const Page = (props: PageProps) => {
                       size={38}
                     />
                   }
+                  onPress={() => navigation.navigate('Search')}
                 />
                 <IconButton
                   icon={<Image source={require('../products/cart.png')} />}

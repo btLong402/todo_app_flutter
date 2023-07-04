@@ -21,115 +21,8 @@ import {Divider} from '@react-native-material/core';
 import {Modal, NativeBaseProvider} from 'native-base';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { useAppSelector } from '../../redux/hook';
-import { getData } from '../../utils/index';
-const Data: DataSection[] = [
-  {
-    title: 'Popular',
-    data: [
-      {
-        title: 'Full Cup Passion Fruit',
-        price: 40000,
-        thumbnail: require('./component/products/sumptous1.png'),
-      },
-      {
-        title: 'Full Cup Passion Fruit',
-        price: 40000,
-        thumbnail: require('./component/products/sumptous1.png'),
-      },
-    ],
-  },
-  {
-    title: 'Ice-cream & Tea',
-    data: [
-      {
-        title: 'Full Cup Passion Fruit',
-        price: 40000,
-        thumbnail: require('./component/products/sumptous1.png'),
-      },
-      {
-        title: 'Full Cup Passion Fruit',
-        price: 40000,
-        thumbnail: require('./component/products/sumptous1.png'),
-      },
-    ],
-  },
-  {
-    title: 'Ice-cream',
-    data: [
-      {
-        title: 'Full Cup Passion Fruit',
-        price: 40000,
-        thumbnail: require('./component/products/sumptous1.png'),
-      },
-      {
-        title: 'Full Cup Passion Fruit',
-        price: 40000,
-        thumbnail: require('./component/products/sumptous1.png'),
-      },
-    ],
-  },
-  {
-    title: 'Fruit tea',
-    data: [
-      {
-        title: 'Full Cup Passion Fruit',
-        price: 40000,
-        thumbnail: require('./component/products/sumptous1.png'),
-      },
-      {
-        title: 'Full Cup Passion Fruit',
-        price: 40000,
-        thumbnail: require('./component/products/sumptous1.png'),
-      },
-    ],
-  },
-  {
-    title: 'Cheese tea & Pure tea',
-    data: [
-      {
-        title: 'Full Cup Passion Fruit',
-        price: 40000,
-        thumbnail: require('./component/products/sumptous1.png'),
-      },
-      {
-        title: 'Full Cup Passion Fruit',
-        price: 40000,
-        thumbnail: require('./component/products/sumptous1.png'),
-      },
-    ],
-  },
-  {
-    title: 'Smoothies',
-    data: [
-      {
-        title: 'Full Cup Passion Fruit',
-        price: 40000,
-        thumbnail: require('./component/products/sumptous1.png'),
-      },
-      {
-        title: 'Full Cup Passion Fruit',
-        price: 40000,
-        thumbnail: require('./component/products/sumptous1.png'),
-      },
-      {
-        title: 'Full Cup Passion Fruit',
-        price: 40000,
-        thumbnail: require('./component/products/sumptous1.png'),
-      },
-      {
-        title: 'Full Cup Passion Fruit',
-        price: 40000,
-        thumbnail: require('./component/products/sumptous1.png'),
-      },
-      {
-        title: 'Full Cup Passion Fruit',
-        price: 40000,
-        thumbnail: require('./component/products/sumptous1.png'),
-      },
-    ],
-  },
-];
+import {useAppSelector} from '../../redux/hook';
+import {getData} from '../../utils/index';
 
 type RenderItemProps = {
   item: Item;
@@ -142,14 +35,14 @@ const RenderItem = (props: RenderItemProps) => {
     <Pressable style={styles.item} onPress={() => handleClick()}>
       <Image
         source={{
-          uri: 'https://vietngon.vn/wp-content/uploads/2023/03/kem-tuoi-ngon.jpg',
+          uri: item.thumbnail,
         }}
         style={styles.img}
         // source={thumbnail}
       />
       <View style={styles.right}>
-        <Text style={styles.h1}>{item.title}</Text>
-        <Text style={styles.h2}>{item.price}</Text>
+        <Text style={styles.h1}>{item.name}</Text>
+        <Text style={styles.h2}>{item.basePrice}</Text>
         <View style={styles.icon}>
           <MaterialCommunityIcons name="plus-circle" color="red" size={30} />
         </View>
@@ -157,7 +50,7 @@ const RenderItem = (props: RenderItemProps) => {
     </Pressable>
   );
 };
-function MainPage({navigation} : any) {
+function MainPage({navigation}: any) {
   const ref1 = useRef<FlatList>(null);
   const [i, setI] = useState(0);
   const {categoryList} = useAppSelector(state => state.categoryList);
@@ -169,15 +62,15 @@ function MainPage({navigation} : any) {
       viewPosition: 0,
     });
   }, [i]);
-  const m = getData(productList, categoryList);
-  console.log(m[1].title, m[1].products);
-  const handleClick = () =>{
+  const Data: DataSection[] = getData(productList, categoryList);
+  // console.log('🚀 ~ file: MainPage.tsx:66 ~ MainPage ~ Data:', Data[0].title, Data[0].products);
+  const handleClick = () => {
     navigation.navigate('Test');
   };
   const [visible, setVisible] = useState(false);
   return (
     <NativeBaseProvider>
-      <Page>
+      <Page navigation={navigation}>
         <FlatList
           ref={ref1}
           initialScrollIndex={i}
@@ -188,15 +81,11 @@ function MainPage({navigation} : any) {
           style={{flexGrow: 0}}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{padding: 20}}
-          renderItem={({item, index: fIndex}) => {
-            return (
-              <Section title={item.title}>
-                {item.data.map((p: Item, id: number) => (
-                  <RenderItem
-                    item={p}
-                    handleClick={handleClick}
-                    key={id}
-                  />
+          renderItem={({item: {title, products}}) =>
+            products.length !== 0 ? (
+              <Section title={title}>
+                {products.map((p: Item, id: number) => (
+                  <RenderItem item={p} handleClick={handleClick} key={id} />
                 ))}
                 <Divider
                   leadingInset={28}
@@ -204,8 +93,8 @@ function MainPage({navigation} : any) {
                   style={styles.divider}
                 />
               </Section>
-            );
-          }}
+            ) : null
+          }
         />
         <Pressable
           onPress={() => setVisible(true)}
@@ -284,8 +173,6 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   icon: {
-    display: 'flex',
-    alignItems: 'flex-end',
     marginTop: 6,
   },
   divider: {
