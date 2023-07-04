@@ -23,9 +23,14 @@ import {useAppDispatch} from '../redux/hook';
 const Splash = ({navigation}: any) => {
   const dispatch = useAppDispatch();
   const [isDisable, setDisable] = React.useState<boolean>(true);
-  const loadData = async () => {
-    await getAllProducts().then((result: any) => {
-      result.data.forEach((product: any) => {
+  const newLoadData = () => {
+    Promise.all([
+      getAllProducts(),
+      getAllCategory(),
+      getAllSize(),
+      getAllTopping(),
+    ]).then(responses => {
+      responses[0].data.forEach((product: any) => {
         let toppingList: any = [];
         let category: any = [];
         let size: any = [];
@@ -55,9 +60,8 @@ const Splash = ({navigation}: any) => {
         };
         dispatch(addNewProduct(newProduct));
       });
-    });
-    await getAllCategory().then((result: any) => {
-      result.data.forEach((category: any) => {
+
+      responses[1].data.forEach((category: any) => {
         dispatch(
           addNewCategory({
             title: String(category.title),
@@ -65,9 +69,8 @@ const Splash = ({navigation}: any) => {
           }),
         );
       });
-    });
-    await getAllSize().then(result => {
-      result.data.forEach((size: any) => {
+
+      responses[2].data.forEach((size: any) => {
         dispatch(
           addNewSize({
             size: String(size.size),
@@ -76,9 +79,7 @@ const Splash = ({navigation}: any) => {
           }),
         );
       });
-    });
-    await getAllTopping().then(result => {
-      result.data.forEach((topping: any) => {
+      responses[3].data.forEach((topping: any) => {
         dispatch(
           addNewTopping({
             toppingId: String(topping._id),
@@ -87,14 +88,16 @@ const Splash = ({navigation}: any) => {
           }),
         );
       });
+
+      setTimeout(() => {
+        setDisable(false);
+      }, 1000);
     });
   };
   useEffect(() => {
-    loadData();
-    setTimeout(() => {
-      setDisable(false);
-    }, 3000);
+    newLoadData();
   }, []);
+
   const handleClick = () => {
     navigation.navigate('MyTabs');
   };

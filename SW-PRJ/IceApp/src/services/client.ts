@@ -24,4 +24,4 @@ export const createClient = (api_root: string, apiConfig = {}) => {
   };
 };
 
-export const client = createClient('http://192.168.50.72:4000/api');
+export const client = createClient('http://10.0.2.2:4000/api');

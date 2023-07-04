@@ -42,7 +42,7 @@ const RenderItem = (props: RenderItemProps) => {
       />
       <View style={styles.right}>
         <Text style={styles.h1}>{item.name}</Text>
-        <Text style={styles.h2}>{item.basePrice}</Text>
+        <Text style={styles.h2}>{item.basePrice} VND</Text>
         <View style={styles.icon}>
           <MaterialCommunityIcons name="plus-circle" color="red" size={30} />
         </View>
