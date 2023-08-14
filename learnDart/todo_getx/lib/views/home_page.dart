@@ -4,7 +4,6 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:todo_getx/controller/authController.dart';
-import 'package:todo_getx/controller/connecting_controller.dart';
 import 'package:todo_getx/controller/task_controller.dart';
 import 'package:google_fonts/google_fonts.dart';
 // import 'package:todo_getx/db/db_cloud.dart';
@@ -22,14 +21,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final AuthController _authController = Get.find();
   final TaskController _taskController = Get.put(TaskController());
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   NetworkController networkController = Get.find();
-  //   _taskController.connection = networkController.connection;
-  //   _taskController.getAllTask();
-  //   // _taskController.inserAllTask();
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -82,8 +73,8 @@ class _HomePageState extends State<HomePage> {
               if (connected) {
                 _taskController.synchronized();
               }
-              _taskController.getAllTask();
             }
+            _taskController.getAllTask();
             return Stack(
               fit: StackFit.expand,
               children: [
@@ -228,7 +219,6 @@ class _HomePageState extends State<HomePage> {
                 ),
           ElevatedButton(
               onPressed: () {
-                // _taskController.deleteTaskInCLoud(task.id!);
                 _taskController.deleteTask(task.id!);
                 Get.back();
               },
