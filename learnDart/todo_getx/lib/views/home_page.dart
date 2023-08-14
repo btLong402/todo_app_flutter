@@ -4,6 +4,7 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:todo_getx/controller/authController.dart';
+import 'package:todo_getx/controller/connecting_controller.dart';
 import 'package:todo_getx/controller/task_controller.dart';
 import 'package:google_fonts/google_fonts.dart';
 // import 'package:todo_getx/db/db_cloud.dart';
@@ -21,13 +22,14 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final AuthController _authController = Get.find();
   final TaskController _taskController = Get.put(TaskController());
-  // final NetworkController _networkController = Get.find();
-  @override
-  void initState() {
-    super.initState();
-    _taskController.getAllTask();
-    // _taskController.inserAllTask();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   NetworkController networkController = Get.find();
+  //   _taskController.connection = networkController.connection;
+  //   _taskController.getAllTask();
+  //   // _taskController.inserAllTask();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -79,9 +81,8 @@ class _HomePageState extends State<HomePage> {
               _taskController.connection = connected;
               if (connected) {
                 _taskController.synchronized();
-              } else {
-                _taskController.getAllTask();
               }
+              _taskController.getAllTask();
             }
             return Stack(
               fit: StackFit.expand,
@@ -93,7 +94,9 @@ class _HomePageState extends State<HomePage> {
                   height: 32.0,
                   child: AnimatedContainer(
                     duration: const Duration(milliseconds: 300),
-                    color: connected ? const Color(0xFF00EE44) : const Color(0xFFEE4400),
+                    color: connected
+                        ? const Color(0xFF00EE44)
+                        : const Color(0xFFEE4400),
                     child: connected
                         ? const Row(
                             mainAxisAlignment: MainAxisAlignment.center,

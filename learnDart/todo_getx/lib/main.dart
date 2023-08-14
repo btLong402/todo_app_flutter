@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:todo_getx/controller/authController.dart';
+import 'package:todo_getx/controller/connecting_controller.dart';
 // import 'package:todo_getx/controller/connecting_controller.dart';
 import 'package:todo_getx/views/home_page.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -19,7 +20,7 @@ void main() async {
   await GetStorage.init();
   await DBHelper().database;
   Get.put(AuthController());
-  // Get.put(NetworkController());
+  Get.put(NetworkController());
   runApp(const MainApp());
 }
 
